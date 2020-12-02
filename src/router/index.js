@@ -1,10 +1,22 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
-import login from "@/views/login";
+import about from '@/views/about'
+import index from "@/views/index";
+
 const routes = [
     {
         path: '',
+        name: 'index',
+        component: index
+    },
+    {
+        path: '/login',
         name: 'login',
-        component: login,
+        component: () => import("@/views/login")
+    },
+    {
+        path: '/about',
+        name: 'about',
+        component: about,
     },
     {
         // route level code-splitting

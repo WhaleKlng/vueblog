@@ -5,7 +5,7 @@
       <div class="form-wrapper">
         <label>
           <input class="input-item"
-                 v-model="useranme"
+                 v-model="username"
                  type="text"
                  name="username"
                  placeholder="username">
@@ -32,7 +32,8 @@
 <script>
 import {reactive, ref, toRefs} from 'vue'
 import {useRouter} from 'vue-router'
-import axios from '../utils/axios'
+import {login} from "@/service/user";
+import {post,post1} from "@/utils/network";
 
 export default {
   setup() {
@@ -62,7 +63,13 @@ export default {
     // 提交请求
     const onsubmit = async (val) => {
       if (state.type === 'Login') {
-        console.log(val)
+        ( post('/user/refresh_token',{token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ilx1NWY5MFx1NWY5N1x1NjU0Zlx1ZTMyNyIsImV4cCI6MTYwNTQ5NjMxNywib3JpZ19pYXQiOjE2MDU0MDk5MTd9.VmZ9_rIAZpuFWCKVYeE8-STeGn5f1xS5ZyiH32kn640"}))
+            .then(res => (console.log(res.data))
+        ).catch(err=> console.log(err))
+      }
+      else {
+        const {data} = await post1('user/refresh_token',{token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ilx1NWY5MFx1NWY5N1x1NjU0Zlx1ZTMyNyIsImV4cCI6MTYwNTQ5NjMxNywib3JpZ19pYXQiOjE2MDU0MDk5MTd9.VmZ9_rIAZpuFWCKVYeE8-STeGn5f1xS5ZyiH32kn640"})
+        console.log(data)
       }
     }
 

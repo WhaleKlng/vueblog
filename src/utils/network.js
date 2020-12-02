@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL = '';
+axios.defaults.baseURL = 'http://119.45.10.211';
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers['token'] = localStorage.getItem('token') || ''
@@ -13,17 +13,16 @@ axios.defaults.headers['token'] = localStorage.getItem('token') || ''
 
 
 // res 拦截器 全局钩子
-// axios.interceptors.response.use(res => {
-//     if (typeof res.data !== 'object') {
-//         return Promise.reject(res)
-//     }
-//     if (res.data.resultCode !== 200) {
-//         if (res.data) {
-//
-//         }
-//     }
-//
-// })
+axios.interceptors.response.use(res => {
+    if (typeof res.data !== 'object') {
+        return Promise.reject(res)
+    }
+    if (res.data.result !== 1) {
+        return Promise.reject(res.data)
+    }
+    return res.data
+
+})
 
 /**
  * 封装post请求
@@ -41,4 +40,11 @@ export function post(url, data = {}) {
                 reject(error)
             })
     })
+}
+
+
+export function post1(url, data = {}) {
+    return axios.post(url, data)
+
+
 }
